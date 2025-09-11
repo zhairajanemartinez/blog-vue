@@ -1,91 +1,67 @@
 <script setup>
+import PostItem from '@/components/PostItem.vue';
+import MyWrapper from '@/components/MyWrapper.vue';
+
 const posts = [
   {
     "userId": 1,
-    "id": 1,
-    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    "id": 5,
+    "name": "ZJ",
+    "date": "09-11-2025",
+    "title": "Chase the Wind, Catch the Sky",
+    "body": "Ambition may seem like chasing the impossible, but in the pursuit, we often rise higher than we ever imagined."
   },
   {
     "userId": 1,
-    "id": 2,
-    "title": "qui est esse",
-    "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+    "id": 6,
+    "name": "ZJ",
+    "date": "09-11-2025",
+    "title": "A Silent River Cuts the Deepest Path",
+    "body": "Quiet strength and steady effort often outlast loud noise and sudden bursts. Patience leaves a lasting mark."
   },
   {
     "userId": 1,
-    "id": 3,
-    "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-    "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+    "id": 7,
+    "name": "ZJ",
+    "date": "09-11-2025",
+    "title": "Don’t Trade Time for Applause",
+    "body": "Seek purpose, not popularity. What’s loud today may be forgotten tomorrow — but meaning endures."
   },
   {
     "userId": 1,
-    "id": 4,
-    "title": "eum et est occaecati",
-    "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
+    "id": 8,
+    "name": "ZJ",
+    "date": "09-11-2025",
+    "title": "Storms Don't Ask for Permission",
+    "body": "Life’s challenges rarely give warnings. Strength lies in how we stand, not when we’re ready."
+  },
+  {
+    "userId": 1,
+    "id": 9,
+    "name": "ZJ",
+    "date": "09-11-2025",
+    "title": "The Tree Grows in Silence",
+    "body": "True growth doesn’t always show itself right away. Be still. Your roots are doing their work."
   },
 ]
 </script>
 
 <template>
-  <div class="wrapper">
-    <div v-for="post in posts" :key="post.id" class="post">
-      <div class="header-navbar">
-        <span>Written by NAME</span>
-        <div class="icons">
-          <button class="del material-icons">delete</button>
-          <button class="save material-icons">bookmark_border</button>
-        </div>
+  <main>
+    <div class="container">
+      <div v-for="post in posts" :key="post.id">
+        <MyWrapper>
+          <PostItem :post="post"/>
+        </MyWrapper>
       </div>
-      <h1>{{ post.title }}</h1>
-      <p>{{ post.body }}</p>
     </div>
-  </div>
+  </main>
 </template>
 
-<style lang="scss" scoped>
-.wrapper {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2em;
-}
-.post {
-  border: 1px solid #ddd;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-radius: 8px;
-}
-.header-navbar {
-  background: #b2f7b8; /* light green */
-  padding: 0.7em 1em;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* push icons to the other side */
-  margin-bottom: 1em;
-}
-.header-navbar span {
-  color: #145a1f; /* dark green for contrast */
-  font-weight: bold;
-}
-.icons {
-  display: flex;
-  gap: 2em;
-}
-.icons .del,
-.icons .save {
-  color: #145a1f;
-  font-weight: bold;
-  cursor: pointer;
+<style scoped>
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
