@@ -18,3 +18,10 @@ ACTIVITY 7
 
 
 <img width="1440" height="900" alt="Screenshot 2025-09-18 122724" src="https://github.com/user-attachments/assets/852b49b5-49e2-48b5-9a10-b79ceb16bf90" />
+
+
+ACTIVITY 8
+
+
+
+<img width="1440" height="900" alt="Screenshot 2025-09-19 164447" src="https://github.com/user-attachments/assets/09c398f4-b38a-45a8-a31e-fad3e230d57b" />
