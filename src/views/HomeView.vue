@@ -1,61 +1,54 @@
 <script setup>
-import PostItem from '@/components/PostItem.vue';
-import MyWrapper from '@/components/MyWrapper.vue';
+import { ref, computed } from 'vue'
+import PostItem from '@/components/PostItem.vue'
+import MyWrapper from '@/components/MyWrapper.vue'
+import { usePostsStore } from '@/stores/posts'
 
-const posts = [
-  {
-    "userId": 1,
-    "id": 5,
-    "name": "ZJ",
-    "date": "09-11-2025",
-    "title": "Chase the Wind, Catch the Sky",
-    "body": "Ambition may seem like chasing the impossible, but in the pursuit, we often rise higher than we ever imagined."
-  },
-  {
-    "userId": 1,
-    "id": 6,
-    "name": "ZJ",
-    "date": "09-11-2025",
-    "title": "A Silent River Cuts the Deepest Path",
-    "body": "Quiet strength and steady effort often outlast loud noise and sudden bursts. Patience leaves a lasting mark."
-  },
-  {
-    "userId": 1,
-    "id": 7,
-    "name": "ZJ",
-    "date": "09-11-2025",
-    "title": "Don’t Trade Time for Applause",
-    "body": "Seek purpose, not popularity. What’s loud today may be forgotten tomorrow — but meaning endures."
-  },
-  {
-    "userId": 1,
-    "id": 8,
-    "name": "ZJ",
-    "date": "09-11-2025",
-    "title": "Storms Don't Ask for Permission",
-    "body": "Life’s challenges rarely give warnings. Strength lies in how we stand, not when we’re ready."
-  },
-  {
-    "userId": 1,
-    "id": 9,
-    "name": "ZJ",
-    "date": "09-11-2025",
-    "title": "The Tree Grows in Silence",
-    "body": "True growth doesn’t always show itself right away. Be still. Your roots are doing their work."
-  },
-]
+const postsStore = usePostsStore()
+const postFilter = ref('all')
+
+// Toggle between all and saved posts
+const setPostFilter = () => {
+  postFilter.value = postFilter.value === 'all' ? 'saved' : 'all'
+}
+
+// Filtered & sorted posts
+const filteredPosts = computed(() => {
+  const posts = postsStore.sorted || postsStore.posts
+  return postFilter.value === 'all'
+    ? posts
+    : postsStore.saved
+})
 </script>
 
 <template>
-  <main>
-    <div class="container">
-      <div v-for="post in posts" :key="post.id">
-        <MyWrapper>
-          <PostItem :post="post"/>
-        </MyWrapper>
-      </div>
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h3>{{ postFilter === "all" ? "All Posts" : "Saved Posts" }}</h3>
+      <!-- SPINNING ICON HERE -->
+      <span v-show="postsStore.loading" class="material-icons spin">cached</span>
     </div>
-  </main>
+    <div class="filter-button">
+      <button @click="setPostFilter">
+        {{ postFilter === "all" ? "Show saved posts" : "Show all posts" }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Handling -->
+  <div v-if="postsStore.errMsg" class="error">
+    {{ postsStore.errMsg }}
+  </div>
+
+  <!-- Posts -->
+  <div v-if="filteredPosts.length > 0">
+    <div v-for="post in filteredPosts" :key="post.id" class="post-item">
+      <MyWrapper>
+        <PostItem :post="post" />
+      </MyWrapper>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -63,5 +56,65 @@ const posts = [
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
+}
+
+.header {
+  background: rgb(236, 166, 166);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+}
+
+.filter-button button {
+  padding: 8px 16px;
+  background-color: lightblue;
+  color: #333;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-button button:hover {
+  background-color: #f0f0f0;
+}
+
+.post-item {
+  margin-top: 1rem;
+}
+
+.error {
+  margin: 2rem;
+  background: #f87171;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+/* SPINNING ANIMATION */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
 }
 </style>

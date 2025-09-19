@@ -1,9 +1,15 @@
 <script setup>
 import { reactive,computed } from 'vue'
 import MyWrapper from '@/components/MyWrapper.vue';
+import {useRouter} from 'vue-router'
+
+import {usePostsStore} from '@/stores/posts'
+
+const router = useRouter()
+const postsStore = usePostsStore()
 
 const post = reactive ({
-  title: 'my title',
+  title: '',
   body: ''
 })
 
@@ -11,7 +17,10 @@ const isFormInvalid = computed(() => {
   return post.title.trim() === '' || post.body  === ''
 })
 
-
+const submit = () => {
+   postsStore.addPost(post)
+    router.push({name: 'home'})
+}
 </script>
 
 <template>
